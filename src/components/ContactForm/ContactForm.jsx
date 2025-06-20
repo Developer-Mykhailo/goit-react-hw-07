@@ -1,9 +1,8 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import s from "./ContactForm.module.css";
-import * as Yup from "yup";
-import { nanoid } from "nanoid";
-import { addContact } from "../../redux/contactsSlice";
 import { useDispatch } from "react-redux";
+import * as Yup from "yup";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { addContact } from "../../redux/contactsOps";
+import s from "./ContactForm.module.css";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -20,15 +19,12 @@ const ContactForm = () => {
 
   // hendler
   const handleSubmit = (values, actions) => {
-    const contact_id = nanoid();
     dispatch(
       addContact({
-        id: contact_id,
         name: values.name,
         number: values.number,
       })
     );
-
     actions.resetForm();
   };
 
